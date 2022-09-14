@@ -1,20 +1,31 @@
 package com.anthony4m.cryptostats.utils;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 
+@Slf4j
+@Component
+@EnableConfigurationProperties(VaultCredential.class)
 public class HttpUtils {
+    private static VaultCredential vaultCredential = new VaultCredential();
 
-    private static String apiHost = "coinranking1.p.rapidapi.com";
-    private static String apiKey = "f9e0ad06cfmsh7aee569c7bcd32ap1182fcjsnc94caf149f20";
+    public HttpUtils(VaultCredential vaultCredential) {
+        HttpUtils.vaultCredential = vaultCredential;
+    }
+
     public static HttpEntity<String> getHttpEntity(){
         HttpHeaders httpHeaders = new HttpHeaders();
+        log.info("API Host from utils"+ vaultCredential.getApiHost());
         httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        httpHeaders.set("X-RapidAPI-Host",apiHost);
-        httpHeaders.set("X-RapidAPI-Key",apiKey);
+        httpHeaders.set("X-RapidAPI-Host",vaultCredential.getApiHost());
+        httpHeaders.set("X-RapidAPI-Key",vaultCredential.getApiKey());
         return new HttpEntity<>(null,httpHeaders);
     }
 
