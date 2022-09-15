@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -95,5 +96,28 @@ public class CoinsDataService {
     private List<CoinInfo> getAllCoinsFromRedisJSON() {
         CoinData coinData = redisJSON.get(REDIS_COINS_KEY, CoinData.class,new GetArgs().path(".data").indent("\t").newLine("\n").space(" "));
         return coinData.getCoins();
+    }
+
+    public List<CoinInfo> fetchAllCoins() {
+        return getAllCoinsFromRedisJSON();
+    }
+
+    public List<Sample.Value> fetchCoinHistoryByTimeData(String symbol, String timeperiod) {
+        Map<String,Object> timeDataInfo = fetchTimeDataBySymbol(symbol,timeperiod);
+        Long firstTimeStamp = Long.valueOf(timeDataInfo.get("firstTimestamp").toString());
+        Long lastTimeStamp = Long.valueOf(timeDataInfo.get("lastTimestamp").toString());
+
+        List<Sample.Value> coinsTimeData = fetchCoinsTimeData(symbol,timeperiod,firstTimeStamp,lastTimeStamp);
+        return coinsTimeData;
+
+    }
+
+    private List<Sample.Value> fetchCoinsTimeData(String symbol, String timeperiod, Long firstTimeStamp, Long lastTimeStamp) {
+        String key = symbol + ":" + timeperiod;
+        return redisTimeSeries.range(key,firstTimeStamp,lastTimeStamp);
+    }
+
+    private Map<String, Object> fetchTimeDataBySymbol(String symbol, String timeperiod) {
+        return redisTimeSeries.info(symbol + ":" + timeperiod);
     }
 }
