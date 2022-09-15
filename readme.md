@@ -4,7 +4,7 @@
 Clone the project
 
 ```bash
-  git clone https://github.com/Anthony4m/spring-redis-stack.git
+  git clone https://github.com/Anthony4m/crypto-stats.git
 ```
 
 Go to the project directory
@@ -17,6 +17,13 @@ Install dependencies
 
 ```bash
   mvn install
+  run vault and insert your api keys and url 
+```
+Technologies
+
+```bash
+  Redis stack .ie. redisjson, redistimeseries
+  run vault and insert your api keys and url 
 ```
 
 Start the server
@@ -27,7 +34,7 @@ Clean and package the files, plug-ins, and libraries before running the applicat
 mvn clean package
 Use the Maven Local repository to run your Java SE Maven application:
 
-mvn exec:java -Dexec.mainClass="com.example.bank.App" -s "*****location of settings.xml file.********"
+mvn exec:java -Dexec.mainClass="com.anthony4m.crypto-stats" -s "*****location of settings.xml file.********"
 Review the output.
  Execute the JAR file with following commands:
 
