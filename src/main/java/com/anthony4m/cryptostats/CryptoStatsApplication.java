@@ -1,6 +1,6 @@
 package com.anthony4m.cryptostats;
 
-import com.anthony4m.cryptostats.utils.VaultCredential;
+import com.anthony4m.cryptostats.config.VaultCredential;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

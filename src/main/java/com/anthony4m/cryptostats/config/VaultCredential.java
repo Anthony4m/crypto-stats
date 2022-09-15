@@ -1,4 +1,4 @@
-package com.anthony4m.cryptostats.utils;
+package com.anthony4m.cryptostats.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

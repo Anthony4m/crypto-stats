@@ -1,7 +1,7 @@
 package com.anthony4m.cryptostats.utils;
 
+import com.anthony4m.cryptostats.config.VaultCredential;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
